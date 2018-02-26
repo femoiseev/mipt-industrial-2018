@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+{% load static %}
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>To Do List</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'index/custom.css' %}">
+</head>
+
+<body>
+    <!-- Center in middle of screen -->
+    <div class="h-100 row align-items-center">
+        <div class="col">
+            <div id="smallcon" class="container jumbotron">
+
+                <!--Controls---------------------------------------------------------------------->
+                <div class="form-inline tform">
+                <!--- Add items to database -->
+                <form method="POST" action="{% url 'add' %}">
+                    {% csrf_token %} 
+                    {{ form.item }}
+                    <button id="leftbtn" class="btn btn-success" type="submit">Add</button>
+                </form>
+                <!-- Delete items marked as complete from database -->
+                <form action="{% url 'deletecomplete' %}">
+                    <button id="middlebtn" class="btn btn-warning text-dark" type="submit">Delete Completed</button>
+                </form>
+                <!-- Delete all items from database -->
+                <form action="{% url 'deleteall' %}">
+                    <button id="rightbtn" class="btn btn-danger" type="submit">Delete All</button>
+                </form>
+                </div>
+                <!---------------------------------------------------------------------------------->
+
+                <!--Show items from database -------------------------------------------------------->
+                <ul class="list-group">
+                    <!-- For each item in database -->
+                    {% for list_item in items %}
+                    <!-- If item is marked as complete -->
+                    {% if list_item.complete %}
+                    <li class="list-group-item completed border-dark">
+                    <form action="{% url 'delete' list_item.id %}">
+                        {{ list_item.item }}
+                        <button class="btn float-right btn-outline-danger" type="submit">X</button>
+                    </form>
+                    </li>
+                    <!-- If item is marked as not complete -->
+                    {% else %}
+                    <li class="list-group-item border-dark">
+                        <form action="{% url 'delete' list_item.id %}">
+                            <a href="{% url 'complete' list_item.id %}">{{ list_item.item }}</a>
+                            <button class="btn float-right btn-outline-danger" type="submit">X</button>
+                        </form>
+                    </li>
+                    {% endif %}
+                    {% endfor %}
+                </ul>
+                <!------------------------------------------------------------------------------------>
+
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+html,
+body {
+    height: 100%;
+}
+
+body {
+    background-color: #222;
+}
+
+#smallcon {
+    padding: 10px;
+    background-color: white;
+}
+
+.completed {
+    text-decoration: line-through;
+}
+
+.tform {
+    margin-bottom: 20px;
+}
+
+#leftbtn {
+    margin: 0px 20px 0px 5px;
+}
+
+#middlebtn {
+    margin-left: 200px;
+}
+
+#rightbtn {
+    margin-left: 360px;
+}
+
+a:link {
+    color: black;
+}
+
+a:hover {
+    color: #333;
+    text-decoration: none;
+}
+
+a:visited {
+    color: black;
+}
